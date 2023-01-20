@@ -42,9 +42,10 @@ body {
 }
 .movie {
   background: linear-gradient(180deg, #010113 0%, #0E0E31 100%);
-  height:100%;
+  height: 100%;
   width:100vw;
   color: #e1e1e1;
+  padding-bottom:30px;
   &__nav {
     display:flex;
     align-items: center;

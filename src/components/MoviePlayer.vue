@@ -1,6 +1,5 @@
 <template>
-  <video ref="videoPlayer" @loadedmetadata="loadData" @timeupdate="timeLogger" @play="start" @pause="middle"
-         @ended="end" controls>
+  <video ref="videoPlayer" @loadedmetadata="loadData" @timeupdate="timeLogger" controls>
     <source :src="movie.filePath" type="video/mp4">
   </video>
 </template>
@@ -23,27 +22,24 @@ export default {
 
         const currentTime = Math.floor(videoPlayer.value.currentTime);
         if (currentTime === 0) {
-          console.log("Poczatek");
+          console.log("Początek");
         }
         if (halfDuration.value == currentTime) {
           console.log("Polowa")
         }
         if (currentTime == duration.value) {
-          console.log("koniec");
+          console.log("Koniec");
         }
       }
     }
-
     function loadData() {
       this.duration = Math.floor(videoPlayer.value.duration);
       this.halfDuration = Math.floor(videoPlayer.value.duration / 2);
     }
-
     return {videoPlayer, duration, halfDuration, loadData, timeLogger, lastEventTime}
   }
 }
 </script>
 
 <style scoped>
-
 </style>

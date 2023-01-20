@@ -12,9 +12,7 @@
          </button>
        </div>
        <div v-if="movie.isOpen" class="movie">
-           <video @play="start" @pause="middle" @ended="end" controls>
-             <source :src="movie.movieUrl" type="video/mp4">
-           </video>
+           <MoviePlayer :movie="movie"/>
        </div>
      </div>
   </div>
@@ -22,29 +20,25 @@
 
 <script>
 import {reactive} from "vue";
-import movie1 from "@/assets/movies/movie1.mp4"
-import movie2 from "@/assets/movies/movie2.mp4"
-import movie3 from "@/assets/movies/movie3.mp4"
-import movie4 from "@/assets/movies/movie4.mp4"
+import MoviePlayer from "@/components/MoviePlayer.vue";
 export default {
   name: 'MoviesList',
-  components:{},
+  components:{MoviePlayer},
   setup(){
-    const movies = reactive([
-      movie1, movie2, movie3, movie4
-    ])
     const listOfMovies = reactive([
       {
         id:0,
         movieTitle:'W pustyni i w puszczy',
         movieUrl:'',
         movieFullTime:null,
+        filePath: require('@/assets/movies/movie1.mp4'),
         isOpen:false
       },
       {
         id:1,
         movieTitle:'Tajemniczy smark na firanie',
         movieUrl:'',
+        filePath:require('@/assets/movies/movie2.mp4'),
         movieFullTime:null,
         isOpen:false
       },
@@ -52,6 +46,7 @@ export default {
         id:2,
         movieTitle:'Zabójcza opona',
         movieUrl:'',
+        filePath:require('@/assets/movies/movie3.mp4'),
         movieFullTime:null,
         isOpen:false
       },
@@ -59,12 +54,11 @@ export default {
         id:3,
         movieTitle:'Czeski film',
         movieUrl:'',
+        filePath:require('@/assets/movies/movie4.mp4'),
         movieFullTime:null,
         isOpen:false
       }
     ]);
-
-    listOfMovies.map((item,index) => item.movieUrl = movies[index])
 
     function open(index) {
       const currentMovie = listOfMovies.find(movie => movie.id === index);
@@ -78,27 +72,7 @@ export default {
     }
     return{
       listOfMovies,
-      open,movies
-    }
-  },
-  mounted() {
-    if (Array.isArray(this.$refs.video) && this.$refs.video.length > 0) {
-      this.$refs.video.forEach(video => {
-        video.addEventListener('play', this.start)
-        video.addEventListener('pause', this.middle)
-        video.addEventListener('ended', this.end)
-      })
-    }
-  },
-  methods: {
-    start() {
-      console.log('początek filmu')
-    },
-    middle() {
-      console.log('środek filmu')
-    },
-    end() {
-      console.log('koniec filmu')
+      open
     }
   }
 }
